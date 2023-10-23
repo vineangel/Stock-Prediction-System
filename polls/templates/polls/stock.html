@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Prediction Plot</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Stock Price Prediction Plot</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="future_days">Enter the number of days to predict:</label>
+        <input type="text" id="future_days" name="future_days" value="{{ future_days }}">
+        <input type="submit" value="Generate Plot">
+    </form>
+
+    {% if plot_data %}
+    <!-- Display the plot as an image -->
+    <img src="data:image/png;base64,{{ plot_data }}" alt="Stock Price Prediction">
+    {% endif %}
+
+    <!-- Add a canvas element for Chart.js to render the chart -->
+    <canvas id="prediction-chart"></canvas>
+
+    <script>
+        var ctx = document.getElementById('prediction-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ day_new|safe }},
+                datasets: [{
+                    label: 'Predicted Prices',
+                    data: {{ lst_output|safe }},
+                    borderColor: 'orange',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

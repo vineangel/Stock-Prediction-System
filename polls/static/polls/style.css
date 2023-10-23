@@ -1,0 +1,12 @@
+li a {
+    color: green;
+}
+body{
+
+        background-image: url('./images/Google-vs.-Apple-Stock-header-scaled.jpg');
+        background-size: cover; /* Adjust as needed */
+        background-repeat: no-repeat;
+        text-align: center;
+        /* Other background properties like position, attachment, etc. can also be added here */
+
+}
